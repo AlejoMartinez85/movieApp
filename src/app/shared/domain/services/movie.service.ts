@@ -11,8 +11,8 @@ export class MovieService {
   constructor(private http: HttpClient) { }
 
   // Método para buscar películas
-  searchMovies(query: string): Observable<any> {
-    const url = `${this.baseUrl}/search?query=${query}`;
+  searchMovies(query: string, page: number = 1): Observable<any> {
+    const url = `${this.baseUrl}/search/movie?query=${query}&include_adult=false&language=en-US&page=${page}`;
     return this.http.get(url).pipe(
       catchError(this.handleError)
     );

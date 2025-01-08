@@ -1,1 +1,27 @@
-<p>movie-card works!</p>
+<div class="card-content"
+  (mouseenter)="onHover(movie)"
+  (mouseleave)="onHover(null)">
+  <div class="card-content__image-content">
+    <img [src]="returnMoviePoster()" alt="{{ movie?.title }}">
+  </div>
+  <div class="card-content__title-content">
+    <h3>{{movie?.title ?? 'Loading...'| truncate:30}}</h3>
+  </div>
+  <div class="card-content__other-info">
+    <div class="card-content__other-info__content">
+      <h5>Release date:</h5>
+      <span>{{movie?.release_date}}</span>
+    </div>
+    <div class="card-content__other-info__content">
+      <h5>Popularity</h5>
+      <span>{{movie?.popularity}}</span>
+    </div>
+  </div>
+  <!-- Sinopsis visible al hover -->
+   @if (hoveredMovie === movie) {
+     <div class="synopsis">
+       {{ movie?.overview ?? 'Loading overview...' | truncate:300}}
+     </div>
+   }
+</div>
+
