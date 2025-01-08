@@ -1,1 +1,13 @@
-<p>home works!</p>
+<div class="container">
+  <h1>Discover Your Favorite Movies</h1>
+  <app-input-search (search)="searchMovies($event)"></app-input-search>
+  @if(movieList().length > 0){
+    @for(movie of movieList(); track movie; let idx = $index) {
+      <div class="movies-grid">
+        <app-movie-card [movie]="movie"></app-movie-card>
+      </div>
+    }
+  } @else {
+    <p>No results found for your search.</p>
+  }
+</div>
