@@ -1,4 +1,12 @@
 
+.main-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1rem;
+}
+
 
 
 .movies-content {
@@ -7,5 +15,13 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.25rem;
+}
+
+
+.paginator-content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

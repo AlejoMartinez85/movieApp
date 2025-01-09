@@ -1,6 +1,5 @@
 export const BASES_ROUTE: any = {
-  HOME: '/home',
-  DETAIL: '/detail'
+  HOME: '/movies',
 };
 
 export const constants: any = {

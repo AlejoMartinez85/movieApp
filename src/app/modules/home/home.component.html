@@ -1,23 +1,31 @@
 <div class="main-container">
-  <h1>Discover Your Favorite Movies</h1>
-  <app-input-search (search)="getQueryValue($event)"></app-input-search>
+  <header>
+    <h1>Discover Your Favorite Movies</h1>
+  </header>
+
+  <div class="main-container__input-search-content">
+    <app-input-search (search)="getQueryValue($event)"></app-input-search>
+  </div>
+
   @if(movieList().length > 0){
-    <div class="movies-content">
-      @for(movie of movieList(); track movie; let idx = $index) {
-        <app-movie-card [movie]="movie"></app-movie-card>
-      }
-    </div>
-    @if (movieList().length > 0) {
+    <section>
+      <div class="movies-content mb-4">
+        @for(movie of movieList(); track movie; let idx = $index) {
+          <app-movie-card [movie]="movie"></app-movie-card>
+        }
+      </div>
       <!-- Paginator -->
-      <ngb-pagination
-        [collectionSize]="totalResutls()"
-        [(page)]="currentPage"
-        [pageSize]="pageSize()"
-        [maxSize]="5"
-        [rotate]="true"
-        (pageChange)="onPageChange($event)">
-      </ngb-pagination>
-    }
+       <div class="paginator-content">
+         <ngb-pagination
+           [collectionSize]="totalResutls()"
+           [(page)]="currentPage"
+           [pageSize]="pageSize()"
+           [maxSize]="5"
+           [rotate]="true"
+           (pageChange)="onPageChange($event)">
+         </ngb-pagination>
+       </div>
+    </section>
   } @else {
     @if (hasSearched() === true) {
       <p>No results found for your search.</p>

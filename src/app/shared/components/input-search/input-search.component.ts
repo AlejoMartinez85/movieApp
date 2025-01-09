@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
-import { debounceTime } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 
 @Component({
@@ -17,7 +17,10 @@ export class InputSearchComponent {
   searchControl = new FormControl('');
 
   constructor() {
-    this.searchControl.valueChanges.pipe(debounceTime(2000)).subscribe((value: string | any) => {
+    this.searchControl.valueChanges.pipe(
+      debounceTime(2000),
+      distinctUntilChanged()
+    ).subscribe((value: string | any) => {
       console.log('value in input_ ', value);
       this.search.emit(value); // Emitir valor después de 2 segundos
     });
