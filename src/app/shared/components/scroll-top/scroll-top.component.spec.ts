@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MovieCardComponent } from './movie-card.component';
+import { ScrollTopComponent } from './scroll-top.component';
 
-describe('MovieCardComponent', () => {
-  let component: MovieCardComponent;
-  let fixture: ComponentFixture<MovieCardComponent>;
+describe('ScrollTopComponent', () => {
+  let component: ScrollTopComponent;
+  let fixture: ComponentFixture<ScrollTopComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MovieCardComponent]
+      imports: [ScrollTopComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MovieCardComponent);
+    fixture = TestBed.createComponent(ScrollTopComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

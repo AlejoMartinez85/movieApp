@@ -1,1 +1,21 @@
-<p>movie-card works!</p>
+<div class="card-content" (click)="goToDetail()" (mouseenter)="onHover(movie)" (mouseleave)="onHover(null)">
+
+  <!-- Imagen de la película -->
+  <div class="card-content__image-content">
+    <img [src]="returnMoviePoster()" alt="{{ movie?.title }}" loading="lazy" />
+    <!-- Badge con la fecha en la parte inferior -->
+    <span class="card-content__badge badge bg-primary">
+      {{ movie?.release_date | date:'mediumDate' }}
+    </span>
+  </div>
+
+  <!-- Título debajo de la imagen con padding -->
+  <div class="card-content__title-content">
+    <h3 class="color-text">{{ movie?.title ?? 'Loading...' | truncate:30 }}</h3>
+  </div>
+
+  <!-- Sinopsis visible al hover -->
+  <div *ngIf="hoveredMovie === movie" class="synopsis">
+    {{ movie?.overview ?? 'Loading overview...' | truncate:300 }}
+  </div>
+</div>
