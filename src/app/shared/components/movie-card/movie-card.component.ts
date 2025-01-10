@@ -41,7 +41,6 @@ export class MovieCardComponent {
    * to the detail of the selected film
    */
   goToDetail(): void {
-    if (this.movie?.id) this.movieService.setCurrentMovie = this.movie;
     this.router.navigateByUrl(`${BASES_ROUTE.HOME}/${this.movie?.id}`);
   }
 
