@@ -5,10 +5,11 @@ import { TruncatePipe } from '../../../pipes/truncate.pipe';
 import { Router } from '@angular/router';
 import { BASES_ROUTE } from '../../constants/constants';
 import { MovieService } from '../../domain/services/movie.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-movie-card',
-  imports: [TruncatePipe],
+  imports: [TruncatePipe, CommonModule],
   templateUrl: './movie-card.component.html',
   styleUrl: './movie-card.component.scss'
 })

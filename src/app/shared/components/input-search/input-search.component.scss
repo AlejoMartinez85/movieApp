@@ -3,7 +3,6 @@
   align-items: center;
   position: relative;
   width: 100%;
-  max-width: 400px;
   /* Ajusta el tamaño según sea necesario */
   margin: auto;
 }
@@ -12,7 +11,6 @@
   width: 100%;
   padding: 14px;
   padding-right: 40px;
-  /* Espacio para el icono */
   border: 1px solid #ccc;
   border-radius: 1rem;
   font-size: 16px;
@@ -22,7 +20,6 @@
 
 .search-input:focus {
   border-color: #007bff;
-  /* Cambia el color al enfocar */
 }
 
 .search-icon {

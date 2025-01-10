@@ -10,7 +10,5 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       accept: 'application/json',
     },
   });
-  console.log('hola interceptor');
-
   return next(clonedReq);
 };
