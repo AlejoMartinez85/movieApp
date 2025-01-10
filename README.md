@@ -1,59 +1,67 @@
-# MovieAppp
+# Movie App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.6.
+Este es un proyecto de una aplicación web para visualizar información sobre películas. El proyecto está desarrollado con **Angular V19** y consume la API de **The Movie Database (TMDb)**.
 
-## Development server
+## Descripción
 
-To start a local development server, run:
+La aplicación consta de dos vistas principales:
 
-```bash
-ng serve
-```
+1. **Home**: En esta vista, podrás ver las películas más populares del momento. También incluye una barra de búsqueda donde puedes buscar películas por título.
+2. **Detalle de la Película**: Esta vista muestra la información detallada de una película seleccionada, como su sinopsis, fecha de estreno, género, etc.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Instalación
 
-## Code scaffolding
+1. Clona el repositorio:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+    ```bash
+    git clone https://github.com/tu_usuario/movie-app.git
+    ```
 
-```bash
-ng generate component component-name
-```
+2. Navega al directorio del proyecto:
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+    ```bash
+    cd movie-app
+    ```
 
-```bash
-ng generate --help
-```
+3. Instala las dependencias:
 
-## Building
+    ```bash
+    npm install
+    ```
 
-To build the project run:
+4. Corre la aplicación:
 
-```bash
-ng build
-```
+    ```bash
+    ng serve
+    ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+    La aplicación estará disponible en [http://localhost:4200](http://localhost:4200).
 
-## Running unit tests
+## Endpoints de la API
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+La aplicación usa los siguientes endpoints de la API de The Movie Database (TMDb):
 
-```bash
-ng test
-```
+- **Películas Populares**:  
+  `GET /movie/popular?language=en-US&page={page}`  
+  Este endpoint devuelve una lista de las películas más populares en el idioma inglés.
+  
+- **Buscar Películas por Título**:  
+  `GET /search/movie?query={query}&include_adult=false&language=en-US&page={page}`  
+  Este endpoint permite buscar películas por título. El parámetro `include_adult=false` excluye películas para adultos.
+  
+- **Detalle de una Película**:  
+  `GET /movie/{id}`  
+  Este endpoint devuelve detalles de una película seleccionada.
 
-## Running end-to-end tests
+- **Cast de la Película**:  
+  `GET /movie/{id}/credits?language=en-US`  
+  Este endpoint devuelve la lista de actores y miembros del equipo de la película.
 
-For end-to-end (e2e) testing, run:
+## Tecnologías
 
-```bash
-ng e2e
-```
+- **Angular V19**
+- **The Movie Database API (TMDb)**
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Licencia
 
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Este proyecto está bajo la Licencia MIT. Consulta el archivo LICENSE para más detalles.
