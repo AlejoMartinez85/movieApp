@@ -1,0 +1,54 @@
+<div class="main-container">
+  <header>
+    <h1>Discover Your Favorite Movies</h1>
+  </header>
+
+  <div class="main-container__input-search-content row">
+    <div class="col-sm-12 col-md-6">
+      <app-input-search (search)="getQueryValue($event)"></app-input-search>
+    </div>
+  </div>
+
+  @if (!isLoadingSK()) {
+    @if(movieList().length > 0){
+      <section>
+        <div class="movies-content mb-4">
+          @for(movie of movieList(); track movie; let idx = $index) {
+            <app-movie-card [movie]="movie"></app-movie-card>
+          }
+        </div>
+        <!-- Paginator -->
+         <div class="paginator-content">
+           <ngb-pagination
+             [collectionSize]="totalResutls()"
+             [(page)]="currentPage"
+             [pageSize]="pageSize()"
+             [maxSize]="5"
+             [rotate]="true"
+             (pageChange)="onPageChange($event)">
+           </ngb-pagination>
+         </div>
+      </section>
+    } @else {
+      @if (hasSearched() === true) {
+        <div class="not-found-content">
+          <img [src]="notFound" alt="not-found image">
+          <h3>sorry, your search had no results.</h3>
+        </div>
+      }
+    }
+  } @else  {
+    <div class="row g-4 mb-2 d-flex">
+      @for(movie of [1,2,3,4,5,6]; track movie; let idx = $index) {
+        <div class="col-md-4">
+          <ngx-skeleton-loader
+            [theme]="{ height: '400px', width: '100%', 'border-radius': '15px' }"
+            class="mb-2">
+          </ngx-skeleton-loader>
+        </div>
+      }
+    </div>
+  }
+</div>
+
+<app-scroll-top></app-scroll-top>

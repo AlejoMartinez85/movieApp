@@ -9,5 +9,6 @@ export const constants: any = {
     imagePosterEndpoint: 'https://image.tmdb.org/t/p/w500',
     imageDefault: 'https://via.placeholder.com/400x400?text=Image+Default',
   },
-  version: 'V.1.0.0'
+  version: 'V.1.0.0',
+
 };

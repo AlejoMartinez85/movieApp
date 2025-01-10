@@ -2,64 +2,32 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { constants } from '../../constants/constants';
-import { Movie } from '../interfaces/movie.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MovieService {
   private baseUrl = constants.api.path;
-  private currentMovie: Movie = {
-    adult: false,
-    backdrop_path: '',
-    genre_ids: [],
-    id: 0,
-    original_language: '',
-    original_title: '',
-    overview: '',
-    popularity: 0,
-    poster_path: '',
-    release_date: '',
-    title: '',
-    video: false,
-    vote_average: 0,
-    vote_count: 0
-  };
+
   constructor(private http: HttpClient) { }
 
-  get getCurrentMovie() {
-    return this.currentMovie;
-  }
-
-  set setCurrentMovie(movieSelected: Movie) {
-    this.currentMovie = movieSelected;
-  }
-
-  resetCurrentMovie(): void {
-    this.currentMovie = {
-      adult: false,
-      backdrop_path: '',
-      genre_ids: [],
-      id: 0,
-      original_language: '',
-      original_title: '',
-      overview: '',
-      popularity: 0,
-      poster_path: '',
-      release_date: '',
-      title: '',
-      video: false,
-      vote_average: 0,
-      vote_count: 0
-    };
+  /**
+   * service to bring popular films to you
+   * @param page
+   * @returns
+   */
+  getPopularMovies(page: number = 1): Observable<any> {
+    const url = `${this.baseUrl}/movie/popular?language=en-US&page=${page}`;
+    return this.http.get(url).pipe(
+      catchError(this.handleError)
+    );
   }
   /**
-   *
+   * service to bring you the films filtered by title
    * @param query
    * @param page
    * @returns
    */
-  // Método para buscar películas
   searchMovies(query: string, page: number = 1): Observable<any> {
     const url = `${this.baseUrl}/search/movie?query=${query}&include_adult=false&language=en-US&page=${page}`;
     return this.http.get(url).pipe(
@@ -67,30 +35,42 @@ export class MovieService {
     );
   }
 
-  // Método para obtener datos de una película por ID
+  /**
+   * service that provides detailed
+   * information on the selected film
+   * @param id
+   * @returns
+   */
   getMovieData(id: string): Observable<any> {
     const url = `${this.baseUrl}/movie/${id}`;
     return this.http.get(url).pipe(
       catchError(this.handleError)
     );
   }
-
+  /**
+   * service that brings the cast
+   * information of the selected movie
+   * @param id
+   * @returns
+   */
   getMovieCast(id: string): Observable<any> {
     const url = `${this.baseUrl}/movie/${id}/credits?language=en-US`;
     return this.http.get(url).pipe(
       catchError(this.handleError)
     );
   }
-
-  // Manejo de errores
+  /**
+   * function to handle the error that
+   * may be returned by the services
+   * @param error
+   * @returns
+   */
   private handleError(error: HttpErrorResponse) {
-    let errorMessage = 'Ocurrió un error inesperado.';
+    let errorMessage = 'An unexpected error occurred.';
     if (error.error instanceof ErrorEvent) {
-      // Error del cliente
-      errorMessage = `Error del cliente: ${error.error.message}`;
+      errorMessage = `Client error: ${error.error.message}`;
     } else {
-      // Error del servidor
-      errorMessage = `Error del servidor: ${error.status} - ${error.message}`;
+      errorMessage = `Server error: ${error.status} - ${error.message}`;
     }
     console.error(errorMessage);
     return throwError(() => new Error(errorMessage));

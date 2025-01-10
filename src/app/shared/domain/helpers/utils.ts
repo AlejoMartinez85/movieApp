@@ -1,5 +1,10 @@
 import { constants } from "../../constants/constants";
-
+/**
+ * function that receives a path and completes
+ * it in order to obtain the images of films and actors.
+ * @param posterPath
+ * @returns
+ */
 export const returnPosterUrl = (posterPath: string | undefined): string => {
   return posterPath ? `${constants.api.imagePosterEndpoint}${posterPath}` : constants.api.imageDefault
 };

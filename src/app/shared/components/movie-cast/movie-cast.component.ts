@@ -11,6 +11,12 @@ import { Actor } from '../../domain/interfaces/movie.interface';
 export class MovieCastComponent {
   @Input()
   actor!: Actor;
+  /**
+   * function that allows to return the
+   * path of the actor's image
+   * @param profilePath
+   * @returns
+   */
   getActorImage(profilePath: string): string {
     return returnPosterUrl(profilePath)
   }

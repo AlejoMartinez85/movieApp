@@ -21,16 +21,25 @@ export class MovieCardComponent {
   @Input() movie: Movie | undefined;
   hoveredMovie: Movie| any = null; // Almacena la película actualmente enfocada
   /**
-   *
-   *
+   * function that returns the full url
+   * to fetch the image of the selected film
+   * @returns
    */
   returnMoviePoster(): string {
     return returnPosterUrl(this.movie?.poster_path)
   }
+  /**
+   * function allowing to display the
+   * synopsis of the film when hove over its container
+   * @param movie
+   */
   onHover(movie: Movie | any): void {
     this.hoveredMovie = movie; // Almacena la película al hover o resetea al salir
   }
-
+  /**
+   * function that allows to navigate
+   * to the detail of the selected film
+   */
   goToDetail(): void {
     if (this.movie?.id) this.movieService.setCurrentMovie = this.movie;
     this.router.navigateByUrl(`${BASES_ROUTE.HOME}/${this.movie?.id}`);

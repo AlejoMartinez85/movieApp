@@ -18,11 +18,14 @@ export class InputSearchComponent {
 
   constructor() {
     this.searchControl.valueChanges.pipe(
-      debounceTime(2000),
+      debounceTime(1000),
       distinctUntilChanged()
     ).subscribe((value: string | any) => {
-      console.log('value in input_ ', value);
-      this.search.emit(value); // Emitir valor después de 2 segundos
+      this.search.emit(value);
     });
+  }
+
+  clearSearch(): void {
+    this.searchControl.setValue('');
   }
 }

@@ -1,0 +1,12 @@
+.show-button {
+  opacity: 1 !important;
+}
+
+button {
+  z-index: 1000;
+}
+
+button:hover {
+  transform: translateY(-3px);
+  transition: transform 0.3s ease;
+}

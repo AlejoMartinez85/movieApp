@@ -1,0 +1,19 @@
+<button
+      *ngIf="showButton"
+      (click)="scrollToTop()"
+      class="btn btn-primary rounded-circle position-fixed bottom-0 end-0 m-4 d-flex align-items-center justify-content-center"
+      style="width: 45px; height: 45px; opacity: 0; transition: opacity 0.3s ease;"
+      [class.show-button]="showButton">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"></polyline>
+      </svg>
+    </button>

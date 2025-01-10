@@ -13,7 +13,8 @@ export class CompanyCardComponent {
   @Input()
   company!: ProductionCompany;
   /**
-   *
+   *  function allowing to return the
+   *  full url for the production company image
    * @returns
    */
   getCompanyImage(): string {

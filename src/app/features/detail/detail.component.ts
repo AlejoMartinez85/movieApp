@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { MovieService } from '../../shared/domain/services/movie.service';
 import { ActivatedRoute } from '@angular/router';
-import { Actor, Movie, MovieDetail } from '../../shared/domain/interfaces/movie.interface';
+import { Actor, MovieDetail } from '../../shared/domain/interfaces/movie.interface';
 import { formatMovieDuration, returnPosterUrl } from '../../shared/domain/helpers/utils';
 import { MovieCastComponent } from '../../shared/components/movie-cast/movie-cast.component';
 import { CommonModule } from '@angular/common';
@@ -9,14 +9,24 @@ import { catchError, forkJoin, throwError } from 'rxjs';
 import { BreadcrumbComponent } from '../../shared/components/breadcrumb/breadcrumb.component';
 import { BreadcrumbItem } from '../../shared/domain/interfaces/breadcrumb.interface';
 import { CompanyCardComponent } from '../../shared/components/company-card/company-card.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { ScrollTopComponent } from '../../shared/components/scroll-top/scroll-top.component';
+import { ToastService } from '../../shared/domain/services/toast.service';
 
 @Component({
   selector: 'app-detail',
-  imports: [MovieCastComponent, CommonModule, BreadcrumbComponent, CompanyCardComponent],
+  imports: [
+      MovieCastComponent,
+      CommonModule,
+      BreadcrumbComponent,
+      CompanyCardComponent,
+      NgxSkeletonLoaderModule,
+      ScrollTopComponent
+    ],
   templateUrl: './detail.component.html',
   styleUrl: './detail.component.scss'
 })
-export class DetailComponent implements OnInit, OnDestroy {
+export class DetailComponent implements OnInit {
   movie = signal<MovieDetail>({
     adult: false,
     backdrop_path: '',
@@ -49,14 +59,14 @@ export class DetailComponent implements OnInit, OnDestroy {
   breadcrumbItems: BreadcrumbItem[] = [
     { label: 'Movies', url: '/movies' }
   ];
-
   /**
    * variable for show and hide skeleton screen
    */
   isLoadingSK = signal<boolean>(true);
   constructor(
     private movieService: MovieService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -64,9 +74,8 @@ export class DetailComponent implements OnInit, OnDestroy {
   }
 
   /**
-  * Function to validate if previously stored
-  * information exists or if it is necessary
-  * to consult it
+   * function to obtain the query params and
+   * to be able to consult the information of the selected movie.
   */
   getMovieParams(): void {
     this.route.params.subscribe((response: any) => {
@@ -75,12 +84,19 @@ export class DetailComponent implements OnInit, OnDestroy {
       }
     })
   }
-
+  /**
+   * function that receives the numerical
+   * value of the duration of the film and
+   * returns it with hours and minutes
+   * @returns
+   */
   returnMovieDuration(): string {
     return formatMovieDuration(this.movie().runtime)
   }
+
   /**
-   *
+   * Function that consumes all the information
+   * related to the selected film (detail and cast).
    * @param id
    */
   getMovieInfo(id: number): void {
@@ -89,40 +105,30 @@ export class DetailComponent implements OnInit, OnDestroy {
       movieCredits: this.movieService.getMovieCast(`${id}`)
     }).pipe(
       catchError(error => {
+        this.toastService.showToast(error, 'error');
         this.isLoadingSK.set(false);
         console.error('Error fetching movie data:', error);
-        // Aquí podrías manejar el error de una manera más específica
         return throwError(() => error);
       })
     ).subscribe({
       next: ({ movieDetails, movieCredits }) => {
         this.movie.set(movieDetails);
-        this.movieCast.set(movieCredits.cast); // Asumiendo que tienes un signal para el cast
-        console.log('movie: ', this.movie());
-        console.log('cast: ', this.movieCast());
+        this.movieCast.set(movieCredits.cast);
         this.breadcrumbItems = [
           { label: 'Movies', url: '/movies' },
-          { label: movieDetails.title }  // El último item no tiene URL
+          { label: movieDetails.title }
         ];
-
         this.isLoadingSK.set(false);
-      },
-      error: (error) => {
-        this.isLoadingSK.set(false);
-        // Manejo de error específico si es necesario
       }
     });
   }
 
   /**
-     *
-     *
-     */
-    returnMoviePoster(): string {
-      return returnPosterUrl(this.movie()?.poster_path)
-    }
-
-  ngOnDestroy(): void {
-
+   * function that returns the full url
+   * to fetch the image of the selected film
+   * @returns
+   */
+  returnMoviePoster(): string {
+    return returnPosterUrl(this.movie()?.poster_path)
   }
 }
