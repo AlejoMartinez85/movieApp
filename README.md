@@ -14,13 +14,13 @@ La aplicación consta de dos vistas principales:
 1. Clona el repositorio:
 
     ```bash
-    git clone https://github.com/tu_usuario/movie-app.git
+    git clone https://github.com/tu_usuario/movieApp.git
     ```
 
 2. Navega al directorio del proyecto:
 
     ```bash
-    cd movie-app
+    cd movieApp
     ```
 
 3. Instala las dependencias:
